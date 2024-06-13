@@ -1,0 +1,60 @@
+package models;
+
+import java.time.LocalDateTime;
+
+public class Ticket {
+    private String number;
+    private LocalDateTime entryTime;
+    private Vehicle vehicle;
+    private ParkingSlot parkingSlot;
+    private Operator operator;
+    private Gate entryGate;
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
+
+    public LocalDateTime getEntryTime() {
+        return entryTime;
+    }
+
+    public void setEntryTime(LocalDateTime entryTime) {
+        this.entryTime = entryTime;
+    }
+
+    public ParkingSlot getParkingSlot() {
+        return parkingSlot;
+    }
+
+    public void setParkingSlot(ParkingSlot parkingSlot) {
+        this.parkingSlot = parkingSlot;
+    }
+
+    public Operator getOperator() {
+        return operator;
+    }
+
+    public void setOperator(Operator operator) {
+        this.operator = operator;
+    }
+
+    public Gate getEntryGate() {
+        return entryGate;
+    }
+
+    public void setEntryGate(Gate entryGate) {
+        this.entryGate = entryGate;
+    }
+}
