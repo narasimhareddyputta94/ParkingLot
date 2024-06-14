@@ -18,7 +18,11 @@ public class TicketController {
 
     private TicketService ticketService;
 
-     public IssueTicketRequest issueTicket(IssueTicketRequest ticketRequest) throws ParkingLotFullException {
+    public TicketController(TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
+
+    public IssueTicketRequest issueTicket(IssueTicketRequest ticketRequest) throws ParkingLotFullException {
          Ticket ticket = null;
          try {
              ticket = ticketService.issueTicket(ticketRequest);

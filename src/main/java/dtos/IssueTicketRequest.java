@@ -47,7 +47,7 @@ public class IssueTicketRequest {
     }
 
     public VehicleType getVehicleType() {
-        return vehicleType;
+        return VehicleType.valueOf(vehicleType);
     }
 
     public void setVehicleType(String vehicleType) {

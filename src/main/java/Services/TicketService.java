@@ -22,6 +22,14 @@ public class TicketService {
     private ParkingLotRepository parkingLotRepository;
     private TicketRepository ticketRepository;
 
+    public TicketService(GateRepository gateRepository, VehicleRepository vehicleRepository, ParkingLotRepository parkingLotRepository, TicketRepository ticketRepository) {
+        this.gateRepository = gateRepository;
+        this.vehicleRepository = vehicleRepository;
+        this.parkingLotRepository = parkingLotRepository;
+        this.ticketRepository = ticketRepository;
+    }
+
+
     public Ticket issueTicket(IssueTicketRequest ticketRequest) throws GateNotFoundException, ParkingLotNotfoundException, ParkingLotFullException {
         Ticket ticket = new Ticket();
         ticket.setEntryTime(new Date());
@@ -30,7 +38,7 @@ public class TicketService {
         ticket.setEntryGate(gate);
 
 
-        ticket.setVehicle(getVehicle(ticketRequest));
+        ticket.setVehicle(getVehicleForNumber(ticketRequest));
 
         ticket.setParkingSlot(getParkingSlot(ticketRequest));
 
@@ -49,7 +57,7 @@ public class TicketService {
         return parkingSlot;
     }
 
-    private Vehicle getVehicle(IssueTicketRequest ticketRequest) {
+    private Vehicle getVehicleForNumber(IssueTicketRequest ticketRequest) {
         Vehicle vehicle = vehicleRepository.getVehicleByNumber(ticketRequest.getVehicleNumber());
         if (vehicle == null) {
             vehicle = new Vehicle(ticketRequest.getVehicleType(), ticketRequest.getVehicleNumber(), ticketRequest.getOwnerName());
