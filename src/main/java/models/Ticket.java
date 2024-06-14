@@ -27,11 +27,11 @@ public class Ticket {
         this.vehicle = vehicle;
     }
 
-    public LocalDateTime getEntryTime() {
+    public Date getEntryTime() {
         return entryTime;
     }
 
-    public void setEntryTime(LocalDateTime entryTime) {
+    public void setEntryTime(Date entryTime) {
         this.entryTime = entryTime;
     }
 
