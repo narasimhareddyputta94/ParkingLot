@@ -1,6 +1,7 @@
 package dtos;
 
 import models.Ticket;
+import models.VehicleType;
 
 public class IssueTicketRequest {
     private String vehicleNumber;
@@ -45,7 +46,7 @@ public class IssueTicketRequest {
         this.ownerName = ownerName;
     }
 
-    public String getVehicleType() {
+    public VehicleType getVehicleType() {
         return vehicleType;
     }
 

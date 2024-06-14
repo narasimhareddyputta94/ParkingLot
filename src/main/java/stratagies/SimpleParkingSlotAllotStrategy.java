@@ -11,5 +11,10 @@ public class SimpleParkingSlotAllotStrategy implements ParkingPlaceAllocationStr
         return null;
     }
 
+    @Override
+    public void allocateParkingPlace(models.ParkingLot parkingLot, models.Vehicle vehicle) {
+
+    }
+
 
 }

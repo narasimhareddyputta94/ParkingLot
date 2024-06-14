@@ -4,13 +4,12 @@ import dtos.IssueTicketRequest;
 import dtos.IssueTicketResponse;
 import exceptions.GateNotFoundException;
 import exceptions.ParkingLotNotfoundException;
-import models.Gate;
-import models.ParkingLot;
-import models.Ticket;
-import models.Vehicle;
+import models.*;
 import repositor.GateRepository;
 import repositor.ParkingLotRepository;
 import repositor.VehicleRepository;
+import stratagies.ParkingPlaceAllocationStrategy;
+import stratagies.ParkingSlotAllotmentStrategyFactory;
 
 import java.util.Date;
 
@@ -27,18 +26,19 @@ public class TicketService {
         ticket.setEntryGate(gate);
 
         Vehicle vehicle = vehicleRepository.getVehicleByNumber(ticketRequest.getVehicleNumber());
-
         if (vehicle == null) {
-
             vehicle = new Vehicle(ticketRequest.getVehicleType(), ticketRequest.getVehicleNumber(), ticketRequest.getOwnerName());
             vehicleRepository.addVehicle(vehicle);
-
         }
-
         ticket.setVehicle(vehicle);
 
         ParkingLot parkingLot = parkingLotRepository.getParkingLotById(ticketRequest.getParkingLotId());
-        parkingLot.getParkingPlaceAllocationStrategy();
-        return null;
+        ParkingPlaceAllocationStrategy parkingPlaceAllocationStrategy = parkingLot.getParkingPlaceAllocationStrategy();
+        ParkingPlaceAllocationStrategy parkingAllotmentRule = ParkingSlotAllotmentStrategyFactory.getStrategy(parkingPlaceAllocationStrategy);
+
+        ParkingSlot parkingSlot = parkingAllotmentRule.getParkingSlot(ticketRequest.getVehicleType(),ticketRequest.getParkingLotId());
+        ticket.setParkingSlot(parkingSlot);
+
+        return ticket;
     }
 }

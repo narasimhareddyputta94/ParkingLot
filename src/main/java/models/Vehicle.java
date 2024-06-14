@@ -5,7 +5,7 @@ public class Vehicle extends BaseModel{
     private String vehicleType;
     private String OwnerName;
 
-    public Vehicle(String vehicleNumber, String vehicleType, String ownerName) {
+    public Vehicle(VehicleType vehicleNumber, String vehicleType, String ownerName) {
         this.vehicleNumber = vehicleNumber;
         this.vehicleType = vehicleType;
         OwnerName = ownerName;
