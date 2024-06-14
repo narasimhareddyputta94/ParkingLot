@@ -29,24 +29,32 @@ public class TicketService {
         Gate gate = gateRepository.findGateById(ticketRequest.getGetId());
         ticket.setEntryGate(gate);
 
-        Vehicle vehicle = vehicleRepository.getVehicleByNumber(ticketRequest.getVehicleNumber());
-        if (vehicle == null) {
-            vehicle = new Vehicle(ticketRequest.getVehicleType(), ticketRequest.getVehicleNumber(), ticketRequest.getOwnerName());
-            vehicleRepository.addVehicle(vehicle);
-        }
-        ticket.setVehicle(vehicle);
 
-        ParkingLot parkingLot = parkingLotRepository.getParkingLotById(ticketRequest.getParkingLotId());
-        ParkingPlaceAllocationStrategy parkingPlaceAllocationStrategy = parkingLot.getParkingPlaceAllocationStrategy();
-        ParkingPlaceAllocationStrategy parkingAllotmentRule = ParkingSlotAllotmentStrategyFactory.getStrategy(parkingPlaceAllocationStrategy);
+        ticket.setVehicle(getVehicle(ticketRequest));
 
-        ParkingSlot parkingSlot = parkingAllotmentRule.getParkingSlot(ticketRequest.getVehicleType(),ticketRequest.getParkingLotId());
-        ticket.setParkingSlot(parkingSlot);
-
+        ticket.setParkingSlot(getParkingSlot(ticketRequest));
 
         ticket.setNumber(ticketRequest.getOwnerName() + UUID.randomUUID().toString());
 
         return ticketRepository.save(ticket);
 
+    }
+
+    private ParkingSlot getParkingSlot(IssueTicketRequest ticketRequest) throws ParkingLotNotfoundException, ParkingLotFullException {
+        ParkingLot parkingLot = parkingLotRepository.getParkingLotById(ticketRequest.getParkingLotId());
+        ParkingPlaceAllocationStrategy parkingPlaceAllocationStrategy = parkingLot.getParkingPlaceAllocationStrategy();
+        ParkingPlaceAllocationStrategy parkingAllotmentRule = ParkingSlotAllotmentStrategyFactory.getStrategy(parkingPlaceAllocationStrategy);
+
+        ParkingSlot parkingSlot = parkingAllotmentRule.getParkingSlot(ticketRequest.getVehicleType(), ticketRequest.getParkingLotId());
+        return parkingSlot;
+    }
+
+    private Vehicle getVehicle(IssueTicketRequest ticketRequest) {
+        Vehicle vehicle = vehicleRepository.getVehicleByNumber(ticketRequest.getVehicleNumber());
+        if (vehicle == null) {
+            vehicle = new Vehicle(ticketRequest.getVehicleType(), ticketRequest.getVehicleNumber(), ticketRequest.getOwnerName());
+            vehicleRepository.addVehicle(vehicle);
+        }
+        return vehicle;
     }
 }
