@@ -5,6 +5,12 @@ public class Vehicle {
     private String vehicleType;
     private String OwnerName;
 
+    public Vehicle(String vehicleNumber, String vehicleType, String ownerName) {
+        this.vehicleNumber = vehicleNumber;
+        this.vehicleType = vehicleType;
+        OwnerName = ownerName;
+    }
+
     public String getVehicleNumber() {
         return vehicleNumber;
     }
@@ -28,4 +34,6 @@ public class Vehicle {
     public void setOwnerName(String ownerName) {
         OwnerName = ownerName;
     }
+
+
 }
