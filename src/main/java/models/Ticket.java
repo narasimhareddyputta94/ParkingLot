@@ -1,10 +1,11 @@
 package models;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Ticket {
     private String number;
-    private LocalDateTime entryTime;
+    private Date entryTime;
     private Vehicle vehicle;
     private ParkingSlot parkingSlot;
     private Operator operator;
