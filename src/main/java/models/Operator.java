@@ -1,6 +1,6 @@
 package models;
 
-public class Operator {
+public class Operator extends BaseModel{
     private int employeeNumber;
     private String name;
 

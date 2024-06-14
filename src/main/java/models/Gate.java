@@ -1,6 +1,6 @@
 package models;
 
-public class Gate {
+public class Gate extends BaseModel{
     private int gateNumber;
     private GateType gateType;
     private Operator operator;

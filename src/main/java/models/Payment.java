@@ -2,7 +2,7 @@ package models;
 
 import java.time.LocalDateTime;
 
-public class Payment {
+public class Payment extends BaseModel{
     private PaymentMode paymentMode;
     private double amount;
     private PaymentStatus paymentStatus;
